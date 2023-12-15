@@ -6,6 +6,8 @@ import { FaRegComments }   from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaRegStar }       from "react-icons/fa";
 import { AiFillHeart } from "react-icons/ai";
+import CommentForm from './CommentForm';
+import CommentList from './CommentList';
 
 function Comment({closeComment}) {
 
@@ -19,6 +21,35 @@ function Comment({closeComment}) {
     const [isLiked, setIsLiked] = useState(false);
     const handleClick = () => {
       setIsLiked(!isLiked);
+    };
+
+    const [comments, setComments] = useState([
+      // { id: 1, userName: 'LEOKNIT', text: 'Comment 1' },
+      // { id: 2, userName: 'LEOKNIT', text: 'Comment 2' },
+    ]);
+
+    const handleDelete = (commentId) => {
+      setComments(comments.filter((comment) => comment.id !== commentId));
+    };
+  
+    const handleEdit = (commentId, newText) => {
+      setComments(
+        comments.map((comment) =>
+          comment.id === commentId
+            ? { ...comment, text: comment.userName + ' ' + newText }
+            : comment
+        )
+      );
+    };
+
+    const handleAddComment = (newCommentText) => {
+      const defaultName = 'NGUYEN TRANG CHI KIEM';
+      const newComment = {
+        id: comments.length + 1,
+        userName: defaultName,
+        text: `${defaultName} ${newCommentText}`,
+      };
+      setComments([...comments, newComment]);
     };
 
     return (
@@ -78,6 +109,11 @@ function Comment({closeComment}) {
           <FaRegComments className='FaRegComments'/>
           <FaRegStar className='FaRegStar'/>
         </div>
+
+        <CommentForm onAddComment={handleAddComment} />
+      <div className='CList'>
+      <CommentList comments={comments} onDelete={handleDelete} onEdit={handleEdit} />
+      </div>
       </div>
      )}
       </div>
