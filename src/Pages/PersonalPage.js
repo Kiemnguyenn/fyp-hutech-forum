@@ -17,7 +17,11 @@ import { FaEllipsisH } from "react-icons/fa";
 import EditPost from '../Components/EditPost';
 import Comment from '../Components/Comment';
 
+// import { useUser } from '../Components/UserContext';
+
 function PersonalPage({closeComment}) {
+  // const { user } = useUser();
+  // console.log('User Data:', user);
 
     const navigate = useNavigate();
 
@@ -59,6 +63,11 @@ function PersonalPage({closeComment}) {
     <>
     {openModal && <EditPost closeModal={setOpenModal}/>}
     {openComment && <Comment closeComment={setOpenComment}/>}
+    {/* <div>
+      <h2>User Profile</h2>
+      {user.fullName && <p>Full Name: {user.fullName}</p>}
+      {user.email && <p>Email: {user.email}</p>}
+    </div> */}
     <div className="personal-flex-container">
         <div className='personal-post'>
             <div className='create-post'>
